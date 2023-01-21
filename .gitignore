@@ -3,3 +3,4 @@
 __pycache__
 testenv
 *egg-info*
+build/*
