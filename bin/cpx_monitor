@@ -1,0 +1,23 @@
+#!/usr/bin/python
+from asyncio.log import logger
+import os
+import sys
+
+import argparse
+from log import get_logger
+import cpx_monitor
+logger = get_logger("cpx_monitor")
+
+
+def main():
+    logger.info("Welcome to CPX Monitoring Tool - {}".format(cpx_monitor.__version__))
+    parser = argparse.ArgumentParser(description="A simple cpx server monitoring tool.")
+    parser.add_argument("input_file", nargs=1, help="Path to input file")
+    parser.add_argument("output_file", nargs='?',
+                        help="Path to output file", default="output.txt",
+                        )
+
+    args = parser.parse_args(sys.argv[1:])
+
+if __name__ == "__main__":
+    main()
