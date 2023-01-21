@@ -8,8 +8,9 @@ setup(
     author='Indraneel Srivastava',
     author_email='indraneel.max@gmail.com',
     packages=['cpx_monitor'],
-    install_requires=['pytest',
-                      'mock',
+    install_requires=['mock',
+                      'pytest',
+                      'requests',
                       ],
     scripts=["bin/cpx_monitor"],
 )
