@@ -27,10 +27,10 @@ class CpxMonitor(object):
         """
         url = self._url + "/servers"
         response = requests.get(url)
-        logger.info("Fetching {}".format(url))
+        logger.debug("Fetching {}".format(url))
         if response.status_code == 200:
             data = response.json()
-            logger.info(data)
+            logger.debug(data)
             self.capture_services_info(data)
 
     def capture_services_info(self, server_ip_list):
