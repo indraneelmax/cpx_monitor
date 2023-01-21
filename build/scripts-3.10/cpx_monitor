@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!C:\Users\Indraneel Srivastava\Documents\Code\cpx_monitor\testenv\Scripts\python.exe
 from asyncio.log import logger
 import os
 import sys
