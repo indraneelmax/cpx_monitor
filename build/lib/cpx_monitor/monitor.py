@@ -26,8 +26,6 @@ class CpxMonitor(object):
         url = self._url + "/servers"
         response = requests.get(url)
         logger.info("Fetching {}".format(url))
-        import pdb
-        pdb.set_trace()
         if response.status_code == 200:
             data = response.json()
             logger.info(data)
