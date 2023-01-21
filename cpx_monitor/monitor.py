@@ -5,6 +5,8 @@ from cpx_monitor.log import get_logger
 from cpx_monitor.service_info import ServiceInfo
 logger = get_logger(__name__)
 
+NO_NAME = "Unknown"
+
 
 class CpxMonitor(object):
     """
@@ -17,7 +19,7 @@ class CpxMonitor(object):
             server_url(str): URL to the CPX server
         """
         self._url = server_url
-        self._services = []
+        self._services = {}
 
     def fetch_servers(self):
         """
@@ -29,11 +31,11 @@ class CpxMonitor(object):
         if response.status_code == 200:
             data = response.json()
             logger.info(data)
-            self.capture_server_info(data)
+            self.capture_services_info(data)
 
-    def capture_server_info(self, server_ip_list):
+    def capture_services_info(self, server_ip_list):
         """
-        Capture server info.
+        Capture services info.
 
         Args:
             server_ip_list(list): List of IP addr of servers.
@@ -43,13 +45,17 @@ class CpxMonitor(object):
             response = requests.get(url)
             if response.status_code == 200:
                 data = response.json()
-                server_info = ServiceInfo(name=data.get(
-                    'service', 'Unknown'), ip_addr=server_ip)
-                self._services.append(server_info)
+                name = data.get('service', NO_NAME)
+                exist_serv_info = self._services.get(name, None)
+                if not exist_serv_info:
+                    exist_serv_info = ServiceInfo(name=name)
+                    self._services[name] = exist_serv_info
+                exist_serv_info.add_host(ip_addr=server_ip, data=data)
 
     def list_services(self):
         """
         Print all services info.
         """
-        for service in self._services:
+        logger.info("Listing services - ")
+        for name, service in self._services.items():
             logger.info(service)
