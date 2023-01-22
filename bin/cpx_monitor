@@ -22,7 +22,7 @@ def main():
 
     args = parser.parse_args(sys.argv[1:])
     cpx_monitor = CpxMonitor(args.base_url)
-    cpx_monitor.fetch_servers()
+    cpx_monitor.fetch_services()
     cpx_monitor.list_services()
 
 

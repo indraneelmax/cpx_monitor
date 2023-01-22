@@ -21,7 +21,7 @@ class CpxMonitor(object):
         self._url = server_url
         self._services = {}
 
-    def fetch_servers(self):
+    def fetch_services(self):
         """
         Fetch servers.
         """
@@ -59,3 +59,5 @@ class CpxMonitor(object):
         logger.info("Listing services - ")
         for name, service in self._services.items():
             logger.info(service)
+            logger.info(
+                "{}% - {}%".format(service.avg_cpu, service.avg_memory))
