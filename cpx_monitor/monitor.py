@@ -110,10 +110,10 @@ class CpxMonitor(object):
                     continue
                 if service.needs_attention:
                     ptable.add_row([ConsoleColor.RED + host.ip_addr,
-                                   name, host.cpu, host.memory + ConsoleColor.END])
+                                   name, host.cpu(), host.memory() + ConsoleColor.END])
                 else:
                     ptable.add_row([ConsoleColor.GREEN + host.ip_addr,
-                                   name, host.cpu, host.memory + ConsoleColor.END])
+                                   name, host.cpu(), host.memory() + ConsoleColor.END])
         print(ptable)
 
     def track_services(self, services, interval_sec=2):

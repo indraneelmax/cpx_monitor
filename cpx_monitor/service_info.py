@@ -54,8 +54,8 @@ class ServiceInfo(object):
         """
         cpu_usage = 0
         for host in self.hosts:
-            cpu_usage += int(host.cpu)
-        return cpu_usage/self.num_hosts
+            cpu_usage += int(host.cpu(as_num=True))
+        return "{:.2f}%".format(cpu_usage/self.num_hosts)
 
     @property
     def avg_memory(self):
@@ -64,8 +64,8 @@ class ServiceInfo(object):
         """
         cpu_usage = 0
         for host in self.hosts:
-            cpu_usage += int(host.memory)
-        return cpu_usage/self.num_hosts
+            cpu_usage += int(host.memory(as_num=True))
+        return "{:.2f}%".format(cpu_usage/self.num_hosts)
 
 
 class HostInfo(object):
@@ -81,10 +81,14 @@ class HostInfo(object):
     def __str__(self):
         return "< HostInfo {} - {} - {} >".format(self.ip_addr, self.cpu, self.memory)
 
-    @property
-    def cpu(self):
-        return self._cpu.split('%')[0] if self._cpu else 0
+    def cpu(self, as_num=False):
+        if as_num:
+            return self._cpu.split('%')[0] if self._cpu else 0
+        else:
+            return self._cpu
 
-    @property
-    def memory(self):
-        return self._memory.split('%')[0] if self._memory else 0
+    def memory(self, as_num=False):
+        if as_num:
+            return self._memory.split('%')[0] if self._memory else 0
+        else:
+            return self._memory
