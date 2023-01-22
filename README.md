@@ -40,9 +40,11 @@ options:
 ```
 **Example Run**
 ```
+http://localhost:5500 is the url to our CPX Monitoring service for our examples
+
 # Example-1 : List avg cpu/memory usage per service
 
-%> cpx_monitor --avg_per_service
+%> cpx_monitor http://localhost:5500  --avg_per_service
 
 Welcome to CPX Monitoring Tool - v0.1.0
 Listing services - 
@@ -254,3 +256,22 @@ Welcome to CPX Monitoring Tool - v0.1.0
 +-------------+--------------------+-----+--------+
 
 ```
+
+**Design Thoughts**
+
+`CpxMonitor` class takes care of capturing services and hosts information from the CPX Monitoring service. All printing/output features are handled by it.
+
+`ServiceInfo` class holds information on a service and hosts that belong to it.
+
+`HostInfo` class holds information on a single host.
+
+The tool uses `prettytable` python package to pretty print the hosts and services information in a table.
+
+Improvements that can be done -
+- Better handle errors in fetching data from CPX Monitoring service
+- Service tracking feature clears the screen right now which might not be very user-friendly
+and hence look to improve that by updating it to just re-write the tables in the same space in
+the terminal which I believe can be a tedious job.
+- Add ability to sort and filter tabular services data.
+- Add test to validate that the `ServiceInfo` objects are refreshed in the `CpxMonitor` class for tracking feature.
+
