@@ -37,17 +37,6 @@ class ServiceInfo(object):
         return bool(self.num_hosts)
 
     @property
-    def needs_attention(self):
-        """
-        Returns whether the service needs attention.
-        (i.e less than two running hosts)
-
-        Returns:
-            bool: True if it needs otherwise False.
-        """
-        return self.num_hosts < 2
-
-    @property
     def avg_cpu(self):
         """
         Returns the average cpu usage across hosts.

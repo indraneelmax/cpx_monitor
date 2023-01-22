@@ -40,9 +40,13 @@ def main():
                         action="store_true")
     parser.add_argument("--track_services", required=False, nargs="*",
                         help="Track cpu/mem usage of a given service")
+    parser.add_argument("--min_hosts", required=False, nargs="?",
+                        help="Services with hosts greater than min_hosts will be marked as needs attention.",
+                        type=int,
+                        default=2)
 
     args = parser.parse_args(sys.argv[1:])
-    cpx_monitor = CpxMonitor(args.base_url)
+    cpx_monitor = CpxMonitor(args.base_url, min_hosts=args.min_hosts)
     cpx_monitor.fetch_services()
     if args.avg_per_service:
         cpx_monitor.list_services_avg()

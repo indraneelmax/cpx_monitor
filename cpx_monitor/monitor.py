@@ -23,12 +23,15 @@ class CpxMonitor(object):
     Captures services and hosts information from CPX Service.
     """
 
-    def __init__(self, server_url):
+    def __init__(self, server_url, min_hosts=2):
         """
         Args:
             server_url(str): URL to the CPX server
+            min_hosts(int): Services with hosts less than min_hosts
+              are makred as need attention.
         """
         self._url = server_url
+        self._min_hosts = min_hosts
         self._services = {}
 
     def fetch_services(self):
@@ -69,7 +72,7 @@ class CpxMonitor(object):
         ptable = PrettyTable(["Service", "AVG CPU", "AVG MEMORY"])
         logger.info("Listing services - ")
         for name, service in self._services.items():
-            if service.needs_attention:
+            if len(service.hosts) < self._min_hosts:
                 ptable.add_row(
                     [ConsoleColor.RED + name, service.avg_cpu, str(service.avg_memory) + ConsoleColor.END])
             else:
@@ -90,7 +93,7 @@ class CpxMonitor(object):
             for host in service.hosts:
                 if services and name not in services:
                     continue
-                if service.needs_attention:
+                if len(service.hosts) < self._min_hosts:
                     ptable.add_row([ConsoleColor.RED + host.ip_addr,
                                    name, host.cpu(), host.memory() + ConsoleColor.END])
                 else:

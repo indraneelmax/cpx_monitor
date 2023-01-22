@@ -23,7 +23,7 @@ which cpx_monitor
 %> cpx_monitor --help
 
 Welcome to CPX Monitoring Tool - v0.1.0
-usage: cpx_monitor [-h] [--avg_per_service] [--track_services [TRACK_SERVICES ...]] [base_url]
+usage: cpx_monitor [-h] [--avg_per_service] [--track_services [TRACK_SERVICES ...]] [--min_hosts [MIN_HOSTS]] [base_url]
 
 A simple cpx server monitoring tool.
 
@@ -35,6 +35,8 @@ options:
   --avg_per_service     List services by type with their average cpu/mem usage.
   --track_services [TRACK_SERVICES ...]
                         Track cpu/mem usage of a given service
+  --min_hosts [MIN_HOSTS]
+                        Services with hosts greater than min_hosts will be marked as needs attention.
 ```
 **Example Run**
 ```
