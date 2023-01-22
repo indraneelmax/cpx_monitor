@@ -16,6 +16,8 @@ class ServiceInfo(object):
 
         Args:
             ip_addr(str): IP addr for the host.
+            data(dict): data for the host containing 
+              cpu/memory information.
         """
         self.hosts.append(HostInfo(ip_addr, data))
 
@@ -63,6 +65,12 @@ class HostInfo(object):
     """
 
     def __init__(self, ip_addr, data):
+        """
+        Args:
+            ip_addr(str): IP addr for the host.
+            data(dict): data for the host containing 
+              cpu/memory information.
+        """
         self.ip_addr = ip_addr
         self._cpu = data.get("cpu", None)
         self._memory = data.get("memory", None)
