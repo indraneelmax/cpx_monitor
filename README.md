@@ -274,6 +274,7 @@ and hence look to improve that by updating it to just re-write the tables in the
 the terminal which I believe can be a tedious job.
 - Add ability to sort and filter tabular services data.
 - Add test to validate that the `ServiceInfo` objects are refreshed in the `CpxMonitor` class for tracking feature.
+- Add type hints for a better developer experience.
 
 **How to Run tests**
 
