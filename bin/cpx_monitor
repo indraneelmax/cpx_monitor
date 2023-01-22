@@ -19,11 +19,17 @@ def main():
     parser.add_argument("base_url", nargs='?',
                         help="URL for the CPX Monitoring service",
                         default="http://localhost:5500")
+    parser.add_argument("--avg_per_service", required=False,
+                        help="List services by type with theri average cpu/mem usage.",
+                        action="store_true")
 
     args = parser.parse_args(sys.argv[1:])
     cpx_monitor = CpxMonitor(args.base_url)
     cpx_monitor.fetch_services()
-    cpx_monitor.list_services()
+    if args.avg_per_service:
+        cpx_monitor.list_services_avg()
+    else:
+        cpx_monitor.list_services()
 
 
 if __name__ == "__main__":

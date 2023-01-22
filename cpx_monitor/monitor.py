@@ -52,12 +52,21 @@ class CpxMonitor(object):
                     self._services[name] = exist_serv_info
                 exist_serv_info.add_host(ip_addr=server_ip, data=data)
 
-    def list_services(self):
+    def list_services_avg(self):
         """
-        Print all services info.
+        Print services avg cpu/mem info .
         """
         logger.info("Listing services - ")
         for name, service in self._services.items():
             logger.info(service)
             logger.info(
                 "{}% - {}%".format(service.avg_cpu, service.avg_memory))
+
+    def list_services(self):
+        """
+        Print cpu/mem info for all hosts per service. 
+        """
+        for name, service in self._services.items():
+            for host in service.hosts:
+                logger.info("{} - {} - {}% - {}%".format(host.ip_addr,
+                            name, host.cpu, host.memory))
