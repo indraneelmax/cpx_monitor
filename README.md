@@ -275,3 +275,13 @@ the terminal which I believe can be a tedious job.
 - Add ability to sort and filter tabular services data.
 - Add test to validate that the `ServiceInfo` objects are refreshed in the `CpxMonitor` class for tracking feature.
 
+**How to Run tests**
+
+```
+Inside the repository -
+
+source testenv/bin/activate
+
+pytest tests/* -v -s
+
+```
