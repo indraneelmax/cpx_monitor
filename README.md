@@ -20,6 +20,11 @@ which cpx_monitor
 **How to Run**
 
 ```
+# You can run the local cpx server via  
+%> cpx_server 5500
+
+# Cmd line tool help 
+
 %> cpx_monitor --help
 
 Welcome to CPX Monitoring Tool - v0.1.0
