@@ -79,7 +79,10 @@ class CpxMonitor(object):
 
     def list_services(self, services=None):
         """
-        Print cpu/mem info for all hosts per service. 
+        Print cpu/mem info for all hosts per service.
+
+        Args:
+            services(list): List of services to print info for.
         """
         ptable = PrettyTable(
             ["IP", "Service", "CPU", "MEMORY"])
