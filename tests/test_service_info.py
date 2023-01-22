@@ -2,6 +2,8 @@ import pytest
 import mock
 from cpx_monitor.service_info import ServiceInfo
 
+TEST_SERVICE_NAME = "TestService"
+
 
 def test_service_info_name():
     """
@@ -14,8 +16,7 @@ def test_service_info_name():
 def test_service_add_hosts(host_data):
     """
     """
-    name = "TestService"
-    serv_info = ServiceInfo(name=name)
+    serv_info = ServiceInfo(name=TEST_SERVICE_NAME)
     assert serv_info.num_hosts == 0
     data = host_data[0]
     serv_info.add_host(ip_addr=data.get('ip_addr'),
@@ -29,8 +30,7 @@ def test_service_add_hosts(host_data):
 def test_service_avg_cpu_and_avg_memory(host_data):
     """
     """
-    name = "TestService"
-    serv_info = ServiceInfo(name=name)
+    serv_info = ServiceInfo(name=TEST_SERVICE_NAME)
     assert serv_info.num_hosts == 0
     data = host_data[0]
     serv_info.add_host(ip_addr=data.get('ip_addr'),
