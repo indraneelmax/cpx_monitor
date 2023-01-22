@@ -129,6 +129,15 @@ class CpxMonitor(object):
                     "{} service not found in CPX".format(service_name))
         while True:
             self.clear_screen()
+            server_ip_list = []
+            # find the server ip's that needs to be monitored
+            for service_name in services:
+                service = self._services.get(service_name)
+                for host in service.hosts:
+                    server_ip_list.append(host.ip_addr)
+                # remove the service as we need to refetch its data
+                del self._services[service_name]
+            self.capture_services_info(server_ip_list)
             self.list_services(services=services)
             time.sleep(interval_sec)
 
