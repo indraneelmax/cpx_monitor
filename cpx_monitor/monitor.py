@@ -122,6 +122,8 @@ class CpxMonitor(object):
 
         Args:
             services(list): List of service names to track.
+            interval_sec(int): Interval time in sec to update
+              tracking data of services. 
         """
         for service_name in services:
             if service_name not in self._services:
