@@ -15,3 +15,8 @@ def host_data():
 
     }]
     return host_data
+
+
+@pytest.fixture(scope='function')
+def server_data(host_data):
+    return [host_data[0].get("ip_addr"), host_data[1].get("ip_addr")]
