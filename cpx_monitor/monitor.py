@@ -87,7 +87,7 @@ class CpxMonitor(object):
         """
         Print services avg cpu/mem info.
         """
-        ptable = PrettyTable(["Service", "CPU", "MEMORY"])
+        ptable = PrettyTable(["Service", "AVG CPU", "AVG MEMORY"])
         logger.info("Listing services - ")
         for name, service in self._services.items():
             if service.needs_attention:
