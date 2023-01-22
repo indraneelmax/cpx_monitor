@@ -36,7 +36,7 @@ def main():
                         help="URL for the CPX Monitoring service",
                         default="http://localhost:5500")
     parser.add_argument("--avg_per_service", required=False,
-                        help="List services by type with theri average cpu/mem usage.",
+                        help="List services by type with their average cpu/mem usage.",
                         action="store_true")
     parser.add_argument("--track_services", required=False, nargs="*",
                         help="Track cpu/mem usage of a given service")
