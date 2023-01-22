@@ -2,12 +2,29 @@
 from asyncio.log import logger
 import os
 import sys
+import signal
 
 import argparse
 import cpx_monitor as cpx
 from cpx_monitor.log import get_logger
 from cpx_monitor.monitor import CpxMonitor
 logger = get_logger("cpx_monitor")
+
+INTERVAL_SEC = 2
+
+
+def ctrlc_handler(signum, frame):
+    """
+    Handler for Ctrl-C
+    """
+    logger.info("Do you really want to exit? y/n ")
+    res = input()
+    if res == 'y' or res == 'Y':
+        logger.info("Exiting...")
+        exit(1)
+
+
+signal.signal(signal.SIGINT, ctrlc_handler)
 
 
 def main():
@@ -21,14 +38,19 @@ def main():
     parser.add_argument("--avg_per_service", required=False,
                         help="List services by type with theri average cpu/mem usage.",
                         action="store_true")
+    parser.add_argument("--track_services", required=False, nargs="*",
+                        help="Track cpu/mem usage of a given service")
 
     args = parser.parse_args(sys.argv[1:])
     cpx_monitor = CpxMonitor(args.base_url)
     cpx_monitor.fetch_services()
     if args.avg_per_service:
         cpx_monitor.list_services_avg()
-    else:
+    elif not args.track_services:
         cpx_monitor.list_services()
+    else:
+        cpx_monitor.track_services(
+            args.track_services, interval_sec=INTERVAL_SEC)
 
 
 if __name__ == "__main__":

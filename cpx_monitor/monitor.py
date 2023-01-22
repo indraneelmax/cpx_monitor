@@ -1,3 +1,5 @@
+import os
+import time
 from prettytable import PrettyTable
 import requests
 
@@ -96,7 +98,7 @@ class CpxMonitor(object):
                     [ConsoleColor.GREEN + name, service.avg_cpu, str(service.avg_memory) + ConsoleColor.END])
         print(ptable)
 
-    def list_services(self):
+    def list_services(self, services=None):
         """
         Print cpu/mem info for all hosts per service. 
         """
@@ -104,6 +106,8 @@ class CpxMonitor(object):
             ["IP", "Service", "CPU", "MEMORY"])
         for name, service in self._services.items():
             for host in service.hosts:
+                if services and name not in services:
+                    continue
                 if service.needs_attention:
                     ptable.add_row([ConsoleColor.RED + host.ip_addr,
                                    name, host.cpu, host.memory + ConsoleColor.END])
@@ -111,3 +115,31 @@ class CpxMonitor(object):
                     ptable.add_row([ConsoleColor.GREEN + host.ip_addr,
                                    name, host.cpu, host.memory + ConsoleColor.END])
         print(ptable)
+
+    def track_services(self, services, interval_sec=2):
+        """
+        Track a given list of services over time.
+
+        Args:
+            services(list): List of service names to track.
+        """
+        for service_name in services:
+            if service_name not in self._services:
+                raise IOError(
+                    "{} service not found in CPX".format(service_name))
+        while True:
+            self.clear_screen()
+            self.list_services(services=services)
+            time.sleep(interval_sec)
+
+    @staticmethod
+    def clear_screen():
+        """
+        Clear screen
+        """
+        # posix is os name for Linux or mac
+        if (os.name == 'posix'):
+            os.system('clear')
+        # else screen will be cleared for windows
+        else:
+            os.system('cls')
