@@ -4,16 +4,15 @@ import os
 import sys
 
 import argparse
-import cpx_monitor
+import cpx_monitor as cpx
 from cpx_monitor.log import get_logger
 from cpx_monitor.monitor import CpxMonitor
 logger = get_logger("cpx_monitor")
 
 
 def main():
-    global cpx_monitor
     logger.info(
-        "Welcome to CPX Monitoring Tool - {}".format(cpx_monitor.__version__))
+        "Welcome to CPX Monitoring Tool - v%s", cpx.__version__)
     parser = argparse.ArgumentParser(
         description="A simple cpx server monitoring tool.")
     parser.add_argument("base_url", nargs='?',
