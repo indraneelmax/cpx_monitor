@@ -39,7 +39,7 @@ class ConsoleColor:
 
 class CpxMonitor(object):
     """
-    Handles monitor.
+    Captures services and hosts information from CPX Service.
     """
 
     def __init__(self, server_url):
