@@ -14,5 +14,5 @@ setup(
                       'requests',
                       'prettytable',
                       ],
-    scripts=["bin/cpx_monitor"],
+    scripts=["bin/cpx_monitor", "bin/cpx_server"],
 )
